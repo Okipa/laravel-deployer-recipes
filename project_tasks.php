@@ -7,8 +7,7 @@ use RuntimeException;
 
 task('git:submodules:install', function () {
     within(get('release_path'), function () {
-        run('git submodule sync --recursive');
-        run('git submodule update --init --recursive');
+        run('./.utils/git/submodules/update.sh');
     });
 })->desc('Installing project submodules');
 
