@@ -58,7 +58,7 @@ $servers = [
 // servers configuration
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // we set the required configurations
-set('repository', 'git@gitlab.acid.fr:acid-solutions/nsn-app.git');
+set('repository', '[project_git_repository]');
 set('composer_flags', '--no-dev --verbose --prefer-dist --optimize-autoloader --no-progress --no-interaction');
 // we override the default deployer configurations
 set('keep_releases', 3);
@@ -69,8 +69,8 @@ set('writable_use_sudo', false);
 set('bin/composer', function(){
     return run('which composer');
 });
-// we add custom configurations to laravel recipe
-add('shared_dirs', ['public/files']);
+// we add custom configurations to laravel recipe (if needed)
+// add('shared_dirs', ['public/files']);
 // we configure servers
 foreach ($servers as $stage => $server) {
     host($stage)
