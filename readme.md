@@ -16,8 +16,8 @@ Extra [Deployer](https://deployer.org) recipes for Laravel projects.
     ...
 ]
 ```
-- Add the `deployer.phar` to your project root : https://deployer.org/docs/getting-started
-- Create a `deploy.php` file at the root of your project with the following content (adjusted according your project needs) :
+- Add the `deployer.phar` to the root path of your project : https://deployer.org/docs/getting-started
+- Create a `deploy.php` file at the root path of your project with the following content (adjusted according your project needs) :
 ```php
 namespace Deployer;
 
