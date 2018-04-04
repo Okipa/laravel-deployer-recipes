@@ -3,6 +3,19 @@ Extra [Deployer](https://deployer.org) recipes for Laravel projects.
 
 ## Installation
 - Install the extra laravel recipes in your project with the following command : `git submodule add https://github.com/Okipa/laravel-deployer-recipes.git .deploy`.
+- Make sure you add the following lines in the `scripts` part of your `composer.json` file in order to make sure you always have an updated version of this git submodule :
+```
+"post-install-cmd": [
+    ...
+    "git submodule sync --recursive && git submodule update --init --recursive",
+    ...
+],
+"post-update-cmd": [
+    ...
+    "git submodule sync --recursive && git submodule update --recursive --remote",
+    ...
+]
+```
 - Add the `deployer.phar` to your project root : https://deployer.org/docs/getting-started
 - Create a `deploy.php` file at the root of your project with the following content (adjusted according your project needs) :
 ```php
