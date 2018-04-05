@@ -3,7 +3,7 @@
 namespace Deployer;
 
 task('deploy:upload', function () {
-    upload(getcwd() . '/deploy/build/packages/latest.zip', '{{ release_path }}');
+    upload(getcwd() . '/.deploy/.build/packages/latest.zip', '{{ release_path }}');
     within(get('release_path'), function () {
         run('unzip -qq -o latest.zip');
         run('rm -f latest.zip');
