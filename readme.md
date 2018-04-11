@@ -1,7 +1,7 @@
 # Laravel Deployer recipes
 Extra [Deployer](https://deployer.org) recipes for Laravel projects.
 
-**Notice :** this submodule uses the https://github.com/Okipa/laravel-utils-dotfiles submodule, so make sure you have installed it before using this one.
+**Notice :** this submodule uses the https://github.com/Okipa/laravel-utils-dotfiles submodule, so make sure it is installed and configured before installing this one.
 
 ## Installation
 - Install the extra laravel recipes in your project with the following command : `git submodule add https://github.com/Okipa/laravel-deployer-recipes.git .deploy`.
