@@ -1,4 +1,8 @@
 # Laravel Deployer recipes
+
+[![Source Code](https://img.shields.io/badge/source-okipa/laravel--deployer--recipes-blue.svg)](https://github.com/Okipa/laravel-deployer-recipes)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+
 Extra [Deployer](https://deployer.org) recipes for Laravel projects.
 
 **Notice :** this submodule uses the https://github.com/Okipa/laravel-utils-dotfiles submodule, so make sure you have installed it before using this one.
