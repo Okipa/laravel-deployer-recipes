@@ -75,6 +75,7 @@ set('writable_use_sudo', false);
 set('bin/composer', function(){
     return run('which composer');
 });
+set('default_timeout', 900);
 // we add custom configurations to laravel recipe (if needed)
 // add('shared_dirs', ['public/files']);
 // we configure servers
