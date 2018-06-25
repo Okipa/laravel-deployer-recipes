@@ -172,6 +172,7 @@ after('deploy:failed', 'deploy:unlock');
 - `supervisor:restart` : Restarting the project supervisor daemon.
 
 ### vendor_tasks.php
-- `vendor:composer_setup` : Setting up composer.
-- `vendor:yarn_install` : Installing project node dependencies.
-- `vendor:bower_install` : Installing project bower dependencies.
+- `vendor:composer_setup` : Setting up composer with a `vendor` directory caching.
+- `vendor:yarn_install` : Installing project node dependencies with a `node_modules` directory caching (usefull with elixir).
+- `vendor:yarn_install_without_cache` : Installing project node dependencies without caching the `node_modules` directory (usefull to avoid symbolic link webpack issue).
+- `vendor:bower_install` : Installing project bower dependencies with a `bower_components` directory caching.

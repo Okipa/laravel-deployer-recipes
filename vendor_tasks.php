@@ -2,7 +2,6 @@
 
 namespace Deployer;
 
-// composer setup
 task('vendor:composer_setup', function () {
     within(get('release_path'), function () {
         $cachePath = get('deploy_path') . '/cache/vendor';
@@ -18,7 +17,6 @@ task('vendor:composer_setup', function () {
     });
 })->desc('Setting up composer');
 
-// yarn dependencies install
 task('vendor:yarn_install', function () {
     within(get('release_path'), function () {
         $cachePath = get('deploy_path') . '/cache/node_modules';
@@ -31,9 +29,14 @@ task('vendor:yarn_install', function () {
         }
         run('yarn install');
     });
-})->desc('Installing project node dependencies');
+})->desc('Installing project node dependencies (with cache)');
 
-// bower dependencies install
+task('vendor:yarn_install_without_cache', function () {
+    within(get('release_path'), function () {
+        run('yarn install');
+    });
+})->desc('Installing project node dependencies (without cache)');
+
 task('vendor:bower_install', function () {
     within(get('release_path'), function () {
         if (is_dir(get('deploy_path') . '/cache/bower_components')) {
