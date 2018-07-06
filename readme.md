@@ -97,19 +97,23 @@ foreach ($servers as $stage => $server) {
 task('build', function() use ($servers) {
     set('deploy_path', getcwd() . '/.deploy/.build');
     set('branch', $servers[input()->getArgument('stage')]['branch']);
-    invoke('deploy:prepare');
-    invoke('deploy:release');
-    invoke('deploy:update_code');
-    invoke('deploy:writable');
-    invoke('vendor:composer_setup');
-    invoke('git:submodules:install');
-    invoke('deploy:vendors');
-    invoke('vendor:yarn_install');
-    invoke('vendor:bower_install');
-    invoke('resources:compile');
-    invoke('deploy:symlink');
-    invoke('build:create_package');
-    invoke('cleanup');
+    try {
+        invoke('build:check_latest');
+    } catch (\RuntimeException $e) {    
+        invoke('deploy:prepare');
+        invoke('deploy:release');
+        invoke('deploy:update_code');
+        invoke('deploy:writable');
+        invoke('vendor:composer_setup');
+        invoke('git:submodules:install');
+        invoke('deploy:vendors');
+        invoke('vendor:yarn_install');
+        invoke('vendor:bower_install');
+        invoke('resources:compile');
+        invoke('deploy:symlink');
+        invoke('build:create_package');
+        invoke('cleanup');
+    }
 })->local()->desc('Locally building and compiling project archive');
 
 task('release', [
@@ -126,7 +130,7 @@ task('release', [
     'artisan:cache:clear',
     'artisan:config:cache',
     // 'artisan:route:cache', // only uncomment if the app is NOT multilingual
-    'artisan:optimize',
+    // 'artisan:optimize',
     'artisan:migrate',
     'artisan:queue:restart',
     'supervisor:restart',
