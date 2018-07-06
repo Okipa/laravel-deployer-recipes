@@ -15,16 +15,23 @@ task('build:check_latest', function() {
         if (! file_exists($checkFile)) {
             throw new \RuntimeException("The prepared package is not up to date.");
         }
-        file_put_contents(getcwd() . '/.deploy/.build/packages/' . $stage, $packageName);
     });
 })->desc('Check the latest package. Throws a RuntimeException if the latest zip is not the last commit.');
 
-task('build:create_package', function() {
-    within(get('release_path'), function() {
+task('build:create_package', function () {
+    within(get('release_path'), function () {
+        $gitSha = run("git rev-parse origin/{{ branch }}");
+        $stage = input()->hasArgument('stage') ? input()->getArgument('stage') : 'production';
+        $packageName = $gitSha . '_' . $stage . '.zip';
+        $fileName = get('deploy_path') . '/packages/' . $packageName;
         run("mkdir -p {{ deploy_path }}/packages");
-        if (file_exists(get('deploy_path') . '/packages/latest.zip')) {
-            run("rm -f {{ deploy_path }}/packages/latest.zip");
+        $existingFiles = glob(get('deploy_path') . '/packages/*' . $stage . '.zip');
+        if (! empty($existingFiles)) {
+            foreach($existingFiles as $file) {
+                unlink($file);
+            }
         }
-        run("zip -qr --exclude=\"*.git*\" --exclude=\"*node_modules*\" {{ deploy_path }}/packages/latest.zip * .[!.]*");
+        file_put_contents(get('deploy_path') . '/packages/' . $stage, $packageName);
+        run("zip -qr --exclude=\"*.git*\" --exclude=\"*node_modules*\" {{ deploy_path }}/packages/$fileName * .[!.]*");
     });
 })->desc('Creating compiled project archive');
