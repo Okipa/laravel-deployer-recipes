@@ -32,6 +32,6 @@ task('build:create_package', function () {
             }
         }
         file_put_contents(get('deploy_path') . '/packages/' . $stage, $packageName);
-        run("zip -qr --exclude=\"*.git*\" --exclude=\"*node_modules*\" {{ deploy_path }}/packages/$fileName * .[!.]*");
+        run('zip -qr --exclude="*.git*" --exclude="*node_modules*" ' . $fileName . ' * .[!.]*');
     });
 })->desc('Creating compiled project archive');
