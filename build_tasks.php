@@ -15,7 +15,7 @@ task('build:check_latest', function() {
         if (! file_exists($checkFile)) {
             throw new \RuntimeException("The prepared package is not up to date.");
         }
-        file_put_contents(get('deploy_path') . '/packages/' . $stage, $packageName);
+        file_put_contents(getcwd() . '/.deploy/.build/packages/' . $stage, $packageName);
     });
 })->desc('Check the latest package. Throws a RuntimeException if the latest zip is not the last commit.');
 
