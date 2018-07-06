@@ -130,7 +130,7 @@ task('release', [
     'artisan:cache:clear',
     'artisan:config:cache',
     // 'artisan:route:cache', // only uncomment if the app is NOT multilingual
-    // 'artisan:optimize',
+    'artisan:optimize',
     'artisan:migrate',
     'artisan:queue:restart',
     'supervisor:restart',
