@@ -36,7 +36,7 @@ task('vendor:yarn_install_rsync', function () {
         $cachePath = get('deploy_path') . '/cache/node_modules';
         $installPath = './node_modules';
         run("yarn install --modules-folder {$cachePath}");
-        run("rsync -ra {$cachePath} {$installPath}/");
+        run("rsync -ra {$cachePath}/ {$installPath}");
     });
 })->desc('Installing project node dependencies (without cache)');
 
