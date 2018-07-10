@@ -176,7 +176,7 @@ after('deploy:failed', 'deploy:unlock');
 - `symlinks:prepare` : Creating project symlinks.
 - `cron:install` : Adding the laravel cron to the user crontab.
 - `server:resources:reload` : Reloading the server resources.
-- `project:dependencies_check` : Project dependencies are missing from the server.
+- `project:dependencies_check` : Check if project dependencies are missing from the server.
 - `supervisor:restart` : Restarting the project supervisor daemon.
 
 ### vendor_tasks.php
