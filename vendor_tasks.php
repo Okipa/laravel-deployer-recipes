@@ -31,9 +31,12 @@ task('vendor:yarn_install', function () {
     });
 })->desc('Installing project node dependencies (with cache)');
 
-task('vendor:yarn_install_without_cache', function () {
+task('vendor:yarn_install_rsync', function () {
     within(get('release_path'), function () {
-        run('yarn install');
+        $cachePath = get('deploy_path') . '/cache/node_modules';
+        $installPath = './node_modules';
+        run("yarn install --modules-folder {$cachePath}");
+        run("rsync {$cachePath} {$installPath}/");
     });
 })->desc('Installing project node dependencies (without cache)');
 

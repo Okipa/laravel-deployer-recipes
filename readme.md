@@ -100,29 +100,34 @@ task('build', function() use ($servers) {
     try {
         invoke('build:check_latest');
     } catch (\RuntimeException $e) {    
+        invoke('deploy:info');
         invoke('deploy:prepare');
+        invoke('deploy:lock');
         invoke('deploy:release');
         invoke('deploy:update_code');
         invoke('deploy:writable');
         invoke('vendor:composer_setup');
         invoke('git:submodules:install');
         invoke('deploy:vendors');
-        invoke('vendor:yarn_install');
-        invoke('vendor:bower_install');
+        invoke('vendor:yarn_install_rsync'); // to use with laravel mix (to avoid webpack symlink issue)
+        // invoke('vendor:yarn_install'); // faster => to use with gulp
+        // invoke('vendor:bower_install'); // uncomment with bower usage
         invoke('resources:compile');
         invoke('deploy:symlink');
         invoke('build:create_package');
+        invoke('deploy:unlock');
         invoke('cleanup');
     }
 })->local()->desc('Locally building and compiling project archive');
 
 task('release', [
+    'deploy:info',
     'deploy:prepare',
     'deploy:lock',
     'deploy:release',
     'deploy:upload',
-    'git:submodules:install',
-    'project:dependencies_check',
+    // 'git:submodules:install', // uncomment if https://github.com/Okipa/laravel-utils-dotfiles submodule is used and with git submodules usage
+    // 'project:dependencies_check', // uncomment if https://github.com/Okipa/laravel-utils-dotfiles submodule is used
     'deploy:shared',
     'deploy:writable',
     'artisan:storage:link',
@@ -132,10 +137,8 @@ task('release', [
     // 'artisan:route:cache', // only uncomment if the app is NOT multilingual
     'artisan:optimize',
     'artisan:migrate',
-    'artisan:queue:restart',
+    // 'artisan:queue:restart', // uncomment if https://github.com/Okipa/laravel-utils-dotfiles submodule is used
     'supervisor:restart',
-    'storage:prepare',
-    'symlinks:prepare',
     'deploy:symlink',
     'deploy:unlock',
     'cleanup',
@@ -178,6 +181,6 @@ after('deploy:failed', 'deploy:unlock');
 
 ### vendor_tasks.php
 - `vendor:composer_setup` : Setting up composer with a `vendor` directory caching.
-- `vendor:yarn_install` : Installing project node dependencies with a `node_modules` directory caching (usefull with elixir).
-- `vendor:yarn_install_without_cache` : Installing project node dependencies without caching the `node_modules` directory (usefull to avoid symbolic link webpack issue).
+- `vendor:yarn_install` : Installing project node dependencies with a `node_modules` directory caching (usefull with gulp / elixir).
+- `vendor:yarn_install_rsync` : Installing project node dependencies with a `node_modules` directory caching and rsyncing the `node_modules` directory (usefull to avoid symbolic link webpack issue).
 - `vendor:bower_install` : Installing project bower dependencies with a `bower_components` directory caching.
