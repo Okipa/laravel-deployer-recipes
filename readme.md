@@ -5,7 +5,7 @@
 
 Extra [Deployer](https://deployer.org) recipes for Laravel projects.
 
-**Notice :** this submodule uses the https://github.com/Okipa/laravel-utils-dotfiles submodule, so make sure it is installed and configured before installing this one.
+**Notice :** some of this submodule recipes are using the https://github.com/Okipa/laravel-utils-dotfiles third dependency.
 
 ------------------------------------------------------------------------------------------------------------------------
 
