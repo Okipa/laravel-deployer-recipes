@@ -110,7 +110,7 @@ task('build', function() use ($servers) {
         invoke('git:submodules:install');
         invoke('deploy:vendors');
         invoke('vendor:yarn_install_rsync'); // to use with laravel mix (to avoid webpack symlink issue)
-        // invoke('vendor:yarn_install'); // faster => to use with gulp
+        // invoke('vendor:yarn_install'); // faster => to only with non-webpack resources manager
         // invoke('vendor:bower_install'); // uncomment with bower usage
         invoke('resources:compile');
         invoke('deploy:symlink');
