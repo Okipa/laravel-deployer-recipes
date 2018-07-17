@@ -11,14 +11,6 @@ task('git:submodules:install', function () {
     });
 })->desc('Installing project submodules');
 
-task('storage:prepare', function () {
-    run('{{bin/php}} {{release_path}}/artisan storage:prepare');
-})->desc('Creating project custom storage directories');
-
-task('symlinks:prepare', function () {
-    run('{{bin/php}} {{release_path}}/artisan symlinks:prepare --production');
-})->desc('Creating project symlinks');
-
 task('cron:install', function () {
     run('job="* * * * * {{bin/php}} {{deploy_path}}/current/artisan schedule:run >> /dev/null 2>&1";'
         . 'ct=$(crontab -l |grep -i -v "$job");(echo "$ct" ;echo "$job") |crontab -');

@@ -172,8 +172,6 @@ after('deploy:failed', 'deploy:unlock');
 
 ### project_tasks.php
 - `git:submodules:install` : Installing project submodules.
-- `storage:prepare` : Creating project custom storage directories.
-- `symlinks:prepare` : Creating project symlinks.
 - `cron:install` : Adding the laravel cron to the user crontab.
 - `server:resources:reload` : Reloading the server resources.
 - `project:dependencies_check` : Check if project dependencies are missing from the server.
